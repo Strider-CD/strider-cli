@@ -8,6 +8,7 @@ module.exports = function(deps) {
   return {
     restart: function() {
       touch.sync(flag)
+      console.log('touched '+flag)
     },
     spawn: function (work) {
       if(cluster.isMaster){
