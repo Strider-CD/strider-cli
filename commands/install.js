@@ -5,7 +5,11 @@ module.exports = function(deps, parser) {
   .callback(function(opts){
     var plugin = opts._[1];
     if (plugin) {
-      pluginManager.install(plugin)
+      pluginManager.install(plugin, function(err) {
+        if (err) throw err;
+        console.log("Install successful -- restarting Strider")
+        require('../resilient')(deps).restart()
+      })
     } else {
       console.error("Please pass in a plugin name. Find plugins with `strider list --all`.")
     }
