@@ -11,6 +11,9 @@ module.exports = function (deps) {
     },
     install: function(pluginName, cb) {
       require('./install_plugin')(deps)(pluginName, cb)
+    },
+    uninstall: function(pluginName, cb) {
+      require('./uninstall_plugin')(deps)(pluginName, cb)
     }
   }
 }

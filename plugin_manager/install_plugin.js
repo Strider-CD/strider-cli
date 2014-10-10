@@ -12,13 +12,6 @@ module.exports = function(deps) {
    *   cb(Error anyError, Boolean restartOrNot)
    */
   return function(name, cb) { 
-    /*
-     * if i already hvae it installed in my pluginpath
-     * then tell me its already installed in err
-     *
-     * otherwise clone it into my pluginpath
-     * then tell me it was installed
-     */
     var pluginPath = path.join(home, name)
     console.log(pluginPath)
     if (fs.existsSync(pluginPath)) {

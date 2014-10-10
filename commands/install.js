@@ -9,7 +9,7 @@ module.exports = function(deps, parser) {
         if (err) {
           console.error(err.stack);
         } else {
-          console.log(plugin+" installed successfully")
+          console.log(plugin+" installed")
           if (restart) {
             require('../resilient')(deps).restart()
           }

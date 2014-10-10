@@ -1,18 +1,22 @@
 module.exports = function(deps, parser) {
   var pluginManager = require('../plugin_manager')(deps)
-  parser.command('list')
-  .option('all', {
-    abbr: 'a',
-    flag: true,
-    help: 'Include remote plugins available for install'
-  })
-  .help('List local plugins. Use --all to fetch all.')
+  parser.command('uninstall')
+  .help('Uninstall a plugin')
   .callback(function(opts){
-    if (opts.all) {
-      pluginManager.listRemote(opts)
+    var plugin = opts._[1];
+    if (plugin) {
+      pluginManager.uninstall(plugin, function(err, restart) {
+        if (err) {
+          console.error(err.stack);
+        } else {
+          console.log(plugin+" uninstalled")
+          if (restart) {
+            require('../resilient')(deps).restart()
+          }
+        }
+      })
     } else {
-      console.log("Listing only installed plugins. Use flag '-a' to show all")
-      pluginManager.listLocal(opts)
+      console.error("Please pass in a plugin name. See installed plugins with `strider list`.")
     }
   })
 }
