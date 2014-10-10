@@ -9,7 +9,7 @@ CLI for Strider
 ## Available Options
 
 
-```bash
+```no-highlight
 Usage: node strider [command] [options]
 
 command
