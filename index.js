@@ -21,6 +21,12 @@ module.exports = function(deps) {
     help: 'Specify path to extensions (defaults to node_modules)'
   })
 
+  parser.command('restart')
+  .callback(function() {
+    var resilient = require('./resilient')(deps)
+    resilient.restart()
+  })
+
   parser.command('ls')
   .help('List locally installed plugins')
   .callback(function(opts){

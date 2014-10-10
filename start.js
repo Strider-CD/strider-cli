@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(deps) {
-  var resilient = require('./resilient')
+  var resilient = require('./resilient')(deps)
 
   return function(extpath) {
     var path = require('path');
@@ -9,9 +9,7 @@ module.exports = function(deps) {
     // Save extension dir
     deps.common().extdir = extdir
 
-    resilient({
-      restartFile: deps.restartFile
-    }, function() {
+    resilient.spawn(function() {
       deps.main()(extdir);
     })
   }
