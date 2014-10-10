@@ -1,7 +1,7 @@
 var prompt = require('prompt')
 var path = require('path')
+var git = require('./git')
 var fs = require('fs')
-var spawn = require('child_process').spawn
 
 module.exports = function (deps) {
   var localPlugins = require('./local_plugins')(deps)
@@ -30,31 +30,26 @@ module.exports = function (deps) {
     if (fs.existsSync(pluginPath)) {
       console.error(res.name+' already exists: '+pluginPath)
     } else {
-      spawn('git', [
-        'clone', 'git@github.com:bitwit/strider-template.git', pluginPath
-      ], { stdio: 'inherit' }).on('close', function (code) {
-        if (code !== 0) {
-          throw new Error('git clone failed with non-zero status '+code)
-        } else {
-          var pkgPath = path.join(pluginPath, 'package.json')
-          fs.readFile(pkgPath, function (err, jsonFile) {
-            if (err) throw err;
-            var pkg = JSON.parse(jsonFile)
-            Object.keys(schema.properties).forEach(function (key) {
-              pkg[key] = res[key]
-            })
-            fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2), function () {
-              console.log(
-                ["", "A strider plugin template has been prepared for you in the following directory"
-                ,"\t"+pluginPath
-                ,"Please view the README and begin editing the package.json."
-                ,"Make sure to change the git remote to wherever you're hosting your plugin source code"
-                ,"When you're ready to publish, submit a pull request to https://github.com/Strider-CD/strider-plugins"
-                ,"If you have any questions or need help, you can find us in irc.freenode.net #strider"
-              ].join("\n"))
-            })
+      git.clone('https://github.com/bitwit/strider-template.git', pluginPath, function(err) {
+        if (err) throw err;
+        var pkgPath = path.join(pluginPath, 'package.json')
+        fs.readFile(pkgPath, function (err, jsonFile) {
+          if (err) throw err;
+          var pkg = JSON.parse(jsonFile)
+          Object.keys(schema.properties).forEach(function (key) {
+            pkg[key] = res[key]
           })
-        }
+          fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2), function () {
+            console.log(
+              ["", "A strider plugin template has been prepared for you in the following directory"
+            ,"\t"+pluginPath
+            ,"Please view the README and begin editing the package.json."
+            ,"Make sure to change the git remote to wherever you're hosting your plugin source code"
+            ,"When you're ready to publish, submit a pull request to https://github.com/Strider-CD/strider-plugins"
+            ,"If you have any questions or need help, you can find us in irc.freenode.net #strider"
+            ].join("\n"))
+          })
+        })
       })
     }
   })

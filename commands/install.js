@@ -5,12 +5,14 @@ module.exports = function(deps, parser) {
   .callback(function(opts){
     var plugin = opts._[1];
     if (plugin) {
-      pluginManager.install(plugin, function(err) {
+      pluginManager.install(plugin, function(err, restart) {
         if (err) {
           console.error(err.stack);
         } else {
-          console.log("Install successful -- restarting Strider")
-          require('../resilient')(deps).restart()
+          console.log(plugin+" installed successfully")
+          if (restart) {
+            require('../resilient')(deps).restart()
+          }
         }
       })
     } else {

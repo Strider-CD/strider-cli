@@ -10,7 +10,7 @@ module.exports = function (deps) {
       return require('./create_new_plugin')(deps)
     },
     install: function(pluginName, cb) {
-      require('./install_plugin')(pluginName, cb)
+      require('./install_plugin')(deps)(pluginName, cb)
     }
   }
 }
