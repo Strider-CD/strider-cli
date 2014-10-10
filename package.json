@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Strider-CD/strider-cli",
   "dependencies": {
     "bluebird": "^2.3.5",
+    "chokidar": "^0.9.0",
     "cli-table": "^0.3.0",
     "glob": "^4.0.6",
     "js-yaml": "^3.2.2",
@@ -28,6 +29,7 @@
     "readline": "0.0.4",
     "request": "^2.45.0",
     "step": "0.0.5",
-    "superagent": "^0.20.0"
+    "superagent": "^0.20.0",
+    "touch": "0.0.3"
   }
 }
