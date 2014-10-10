@@ -1,7 +1,6 @@
 var parser = require('nomnom');
 
 module.exports = function(deps) {
-  var connect = deps.connect;
   var start = require('./start')(deps);
   var addUser = require('./add-user')(deps)
   var runTest = require('./run-test')(deps)
@@ -16,31 +15,35 @@ module.exports = function(deps) {
       return deps.version;
     }
   })
-  .option('extension_path', {
+  .option('plugin_path', {
     abbr: 'm',
-    help: 'Specify path to extensions (defaults to node_modules)'
+    help: 'Specify path to plugins (defaults to node_modules)'
   })
 
   parser.command('restart')
+  .help("Restart strider if it's running")
   .callback(function() {
-    var resilient = require('./resilient')(deps)
-    resilient.restart()
+    require('./resilient')(deps).restart()
   })
 
-  parser.command('ls')
-  .help('List locally installed plugins')
+  parser.command('list')
+  .option('all', {
+    abbr: 'a',
+    flag: true,
+    help: 'Include remote plugins available for install'
+  })
+  .help('List local plugins. Use --all to fetch all.')
   .callback(function(opts){
-    pluginManager.listLocal(opts)
+    if (opts.all) {
+      pluginManager.listRemote(opts)
+    } else {
+      console.log("Listing only installed plugins. Use flag '-a' to show all")
+      pluginManager.listLocal(opts)
+    }
   })
 
-  parser.command('lsr')
-  .help('List remote plugins available for install')
-  .callback(function(opts){
-    pluginManager.listRemote(opts)
-  })
-
-  parser.command('new')
-  .help('Create a new plugin')
+  parser.command('init')
+  .help('Initialize a new plugin for development')
   .callback(function (opts) {
     pluginManager.createNew(opts)
   })
@@ -67,7 +70,7 @@ module.exports = function(deps) {
     flag: true
   })
   .callback(function(opts){
-    connect(function(err) {
+    deps.connect(function(err) {
       if (err) {
         throw err;
       }
