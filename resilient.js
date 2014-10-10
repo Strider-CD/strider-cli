@@ -4,7 +4,8 @@ var chokidar = require('chokidar')
 var touch = require('touch')
 var watcher = null
 
-module.exports = function (flag, work) {
+module.exports = function (opts, work) {
+  var flag = opts.restartFile;
   if(cluster.isMaster){
     if (flag) {
       touch.sync(flag)

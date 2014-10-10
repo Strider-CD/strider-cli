@@ -9,9 +9,9 @@ module.exports = function(deps) {
     // Save extension dir
     deps.common().extdir = extdir
 
-    // pass a filepath here instead of null
-    // and you touch it to restart strider
-    resilient(null, function() {
+    resilient({
+      restartFile: deps.restartFile
+    }, function() {
       deps.main()(extdir);
     })
   }
