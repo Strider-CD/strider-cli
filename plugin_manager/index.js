@@ -10,7 +10,8 @@ module.exports = function (deps) {
       return require('./create_new_plugin')(deps)
     },
     install: function(pluginName, cb) {
-      require('./install_plugin')(pluginName, cb)
+      var listRemote = require('./list_remote_plugins')(deps)
+      require('./install_plugin')(pluginName, listRemote, cb)
     }
   }
 }

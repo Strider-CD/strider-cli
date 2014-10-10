@@ -7,13 +7,11 @@ module.exports = function(deps) {
   });
   var getPluginPath = deps.getPluginPath()
   var path = require('path')
-  var yaml = require ('js-yaml')
-  var remote = require('./remote_plugins')
   var local = require('./local_plugins')(deps)
-  var pluginServerRoot = 'https://raw.githubusercontent.com/Strider-CD/strider-plugins/master'
-  //var pluginServerRoot = 'http://localhost:8000'
-  var url = pluginServerRoot+'/stable.yml'
-  remote.fetchIndex(url).then(function (remotePlugins) {
+
+  var client = require('strider-ecosystem-client')
+
+  client.fetchPlugins().then(function(remotePlugins) {
     local.listAll(function (err, localPlugins) {
       localPlugins = local.zip(localPlugins)
       remotePlugins.forEach(function (plugin) {

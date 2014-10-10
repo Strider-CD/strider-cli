@@ -1,3 +1,3 @@
-module.exports = function(pluginName, cb) {
+module.exports = function(pluginName, listRemote, cb) {
   cb(null)
 }

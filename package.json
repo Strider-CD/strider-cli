@@ -1,6 +1,6 @@
 {
   "name": "strider-cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "CLI for Strider",
   "main": "index.js",
   "scripts": {
@@ -17,18 +17,16 @@
   },
   "homepage": "https://github.com/Strider-CD/strider-cli",
   "dependencies": {
-    "bluebird": "^2.3.5",
     "chokidar": "^0.9.0",
     "cli-table": "^0.3.0",
     "glob": "^4.0.6",
-    "js-yaml": "^3.2.2",
     "lodash": "^2.4.1",
     "nomnom": "^1.8.0",
     "prompt": "^0.2.14",
     "pw": "0.0.4",
     "readline": "0.0.4",
-    "request": "^2.45.0",
     "step": "0.0.5",
+    "strider-ecosystem-client": "1.0.0",
     "superagent": "^0.20.0",
     "touch": "0.0.3"
   }
