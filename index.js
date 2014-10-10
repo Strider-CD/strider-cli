@@ -20,9 +20,6 @@ module.exports = function(deps) {
   var commands = require('./commands')
   commands.setup(deps, parser)
 
-
-
-
   parser.nocommand('start')
   .callback(function(opts) {
     start(opts.extension_path);
