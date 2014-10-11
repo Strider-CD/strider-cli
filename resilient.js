@@ -1,5 +1,4 @@
 var cluster = require('cluster')
-var path = require('path')
 var chokidar = require('chokidar')
 var touch = require('touch')
 
