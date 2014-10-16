@@ -9,7 +9,6 @@ module.exports = function(deps, parser) {
         if (err) {
           console.error(err.stack);
         } else {
-          console.log(plugin+" uninstalled")
           if (restart) {
             require('../resilient')(deps).restart()
           }

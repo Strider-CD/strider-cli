@@ -3,8 +3,8 @@ var path = require('path')
 var git = require('./git')
 var fs = require('fs')
 
-module.exports = function (deps) {
-  var localPlugins = require('./local_plugins')(deps)
+module.exports = function (pluginsPath) {
+  var localPlugins = require('./local_plugins')(pluginsPath)
   var pluginsPath = localPlugins.path()
   prompt.message = "plugin";
   prompt.start()
@@ -30,7 +30,7 @@ module.exports = function (deps) {
     if (fs.existsSync(pluginPath)) {
       console.error(res.name+' already exists: '+pluginPath)
     } else {
-      git.clone('https://github.com/bitwit/strider-template.git', pluginPath, function(err) {
+      git.clone('https://github.com/Strider-CD/strider-template.git', '1.0.0', pluginPath, function(err) {
         if (err) throw err;
         var pkgPath = path.join(pluginPath, 'package.json')
         fs.readFile(pkgPath, function (err, jsonFile) {
@@ -39,6 +39,7 @@ module.exports = function (deps) {
           Object.keys(schema.properties).forEach(function (key) {
             pkg[key] = res[key]
           })
+          pkg["strider"]["id"] = res.name
           fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2), function () {
             console.log(
               ["", "A strider plugin template has been prepared for you in the following directory"

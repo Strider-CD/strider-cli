@@ -1,44 +1,52 @@
-module.exports = function(deps) {
-  var getPluginPath = deps.getPluginPath()
+module.exports = function(pluginsPath) {
+  var Loader = require('strider-extension-loader')
+  var loader = new Loader();
+
   var path = require('path')
-  var glob = require('glob')
   var _ = require('lodash')
 
   return {
     path: fullPath,
     listAll: listAll,
-    zip: function (plugins) {
-      return _.zipObject(
-        _.pluck(plugins, 'name'),
-        _.map(plugins, function (plugin) {
-          return {
-            version: plugin.version,
-            path: plugin.path
-          }
-        })
-      ) 
-    }
+    listAllZipped: listAllZipped
+  }
+
+  function zip(plugins) {
+    var ids = _.pluck(plugins, 'name')
+    return _.zipObject(ids, plugins)
   }
 
   function fullPath() {
-    return getPluginPath()[0]
+    return pluginsPath[0]
   }
 
-  function getPluginFullPaths(cb) {
-    glob(path.join(fullPath(), 'strider-*'), cb)
+  function getVersion(pluginPath) {
+    return require(path.join(pluginPath, 'package.json')).version
   }
 
   function listAll(cb) {
-    getPluginFullPaths(function (err, plugins) {
-      var out = []
-      plugins.forEach(function (fullPath) {
-        out.push({
-          path: fullPath,
-          name: path.basename(fullPath),
-          version: require(path.join(fullPath, 'package.json')).version
-        })
-      })
-      cb(err, out);
+    loader.collectExtensions(pluginsPath, function(err) {
+      var plugins = []
+      var extensions = loader.extensions;
+      for (var groupName in extensions) {
+        var group = extensions[groupName]
+        for (var pluginName in group) {
+          var plugin = group[pluginName]
+          plugins.push({
+            group: groupName,
+            name: pluginName,
+            path: plugin.dir,
+            version: getVersion(plugin.dir)
+          })
+        }
+      }
+      cb(err, plugins);
+    })
+  }
+
+  function listAllZipped(cb) {
+    listAll(function(err, plugins) {
+      cb(err, zip(plugins))
     })
   }
 }

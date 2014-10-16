@@ -3,22 +3,24 @@ var _ = require('lodash')
   , path = require('path')
   , rimraf = require('rimraf')
 
-module.exports = function(deps) {
-  var localPlugins = require('./local_plugins')(deps)
+module.exports = function(pluginsPath) {
+  var local = require('./local_plugins')(pluginsPath)
 
   /*
    * Callback signature:
    *   cb(Error anyError, Boolean restartOrNot)
    */
   return function(name, cb) { 
-    localPlugins.listAll(function (err, plugins) {
-      var plugin = _.find(plugins, { name: name });
+    local.listAllZipped(function (err, plugins) {
+      var plugin = plugins[name]
       if (plugin) {
         rimraf(plugin.path, function(err) {
           cb(err, true)
+          console.log('removed '+plugin.path)
         })
       } else {
-        cb(new Error(name+' not found'))
+        console.error(name+' not found')
+        cb()
       }
     })
   }
