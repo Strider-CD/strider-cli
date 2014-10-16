@@ -15,6 +15,9 @@ module.exports = function (pluginsPath) {
     },
     uninstall: function(name, cb) {
       return require('./uninstall_plugin')(pluginsPath)(name, cb)
+    },
+    upgrade: function(name, cb) {
+      return require('./upgrade_plugin')(pluginsPath)(name, cb)
     }
   }
 }

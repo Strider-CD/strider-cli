@@ -4,6 +4,7 @@ var order = [
   , require('./list')
   , require('./install')
   , require('./uninstall')
+  , require('./upgrade')
   , require('./init')
   , require('./runTest')
 ]
