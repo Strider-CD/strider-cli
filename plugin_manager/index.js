@@ -1,5 +1,4 @@
-module.exports = function (deps) {
-  var pluginsPath = deps.getPluginPath()()
+module.exports = function (pluginsPath) {
     
   return {
     listLocal: function() {

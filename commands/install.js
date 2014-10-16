@@ -1,5 +1,5 @@
 module.exports = function(deps, parser) {
-  var pluginManager = require('../plugin_manager')(deps)
+  var pluginManager = require('../plugin_manager')(deps.getPluginPath()())
   parser.command('install')
   .help('Install a plugin from the ecosystem.')
   .callback(function(opts){
