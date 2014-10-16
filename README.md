@@ -17,6 +17,7 @@ command
   list          List local plugins. Use --all to fetch all.
   install       Install a plugin from the ecosystem.
   uninstall     Uninstall a plugin
+  upgrade       Replace a plugin with the the latest version
   init          Initialize a new plugin for development
   runTest       Run a test and optionally deploy
 
@@ -63,6 +64,12 @@ i.e. `$ strider install plugin-name`
 Uninstall a plugin
 
 i.e. `$ strider uninstall plugin-name`
+
+### upgrade
+
+Replace a plugin with the the latest version
+
+i.e. `$ strider upgrade plugin-name`
 
 ### init
 
