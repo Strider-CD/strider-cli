@@ -5,7 +5,8 @@ var _ = require('lodash')
 
 // these are plugins you can't uninstall
 var crucialPlugins = [
-  'git'
+  'git',
+  'simple-runner'
 ]
 
 module.exports = function(pluginsPath) {
