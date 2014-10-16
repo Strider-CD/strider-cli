@@ -3,6 +3,11 @@ var _ = require('lodash')
   , path = require('path')
   , rimraf = require('rimraf')
 
+// these are plugins you can't uninstall
+var crucialPlugins = [
+  'git'
+]
+
 module.exports = function(pluginsPath) {
   var local = require('./local_plugins')(pluginsPath)
 
@@ -11,6 +16,9 @@ module.exports = function(pluginsPath) {
    *   cb(Error anyError, Boolean restartOrNot)
    */
   return function(name, cb) { 
+    if (crucialPlugins.indexOf(name) > -1) {
+      return cb(new Error('This plugin cannot be uninstalled'))
+    }
     local.listAllZipped(function (err, plugins) {
       var plugin = plugins[name]
       if (plugin) {
