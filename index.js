@@ -21,8 +21,11 @@ module.exports = function(deps) {
   commands.setup(deps, parser)
 
   parser.nocommand('start')
+  .option('no-cluster', {
+    help: "Bypass the cluster module when starting Strider. Disables self-restart."
+  })
   .callback(function(opts) {
-    start(opts.extension_path);
+    start(opts.extension_path, opts);
   });
 
   return {

@@ -9,7 +9,8 @@ module.exports = function(deps) {
       touch.sync(flag)
       console.log('touched '+flag)
     },
-    spawn: function (work) {
+    spawn: function (work, noCluster) {
+      if (noCluster) return work();
       if(cluster.isMaster){
         watcher = chokidar.watch(flag)
 

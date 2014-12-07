@@ -3,7 +3,7 @@
 module.exports = function(deps) {
   var resilient = require('./resilient')(deps)
 
-  return function(extpath) {
+  return function(extpath, opts) {
     var path = require('path');
     var extdir = deps.getPluginPath()(extpath);
     // Save extension dir
@@ -11,6 +11,6 @@ module.exports = function(deps) {
 
     resilient.spawn(function() {
       deps.main()(extdir);
-    })
+    }, opts.cluster === false)
   }
 }
