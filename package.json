@@ -27,7 +27,7 @@
     "readline": "0.0.4",
     "rimraf": "^2.2.8",
     "step": "0.0.5",
-    "strider-ecosystem-client": "1.2.0",
+    "strider-ecosystem-client": "1.2.1",
     "superagent": "^0.20.0",
     "touch": "0.0.3"
   }
