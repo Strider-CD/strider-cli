@@ -8,10 +8,17 @@ module.exports = {
       '--branch', tag,
       '--depth', '1',
       repo, path
-    ], { stdio: 'inherit' })
+    ]);
+
+    var errors = []
+
+    proc.stderr.on('data', function(chk) {
+      errors.push(chk.toString());
+    })
+
     proc.on('close', function (code) {
       if (code !== 0) {
-        return cb(new Error('git clone failed with non-zero status '+code))
+        return cb(new Error('git clone failed with non-zero status '+code+".\n"+errors.join('\n')))
       } else {
         return cb(null)
       }
