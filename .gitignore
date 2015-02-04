@@ -26,3 +26,10 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# IDEA files
+.idea
+*.iml
+
+# vi temp files
+*.*~
