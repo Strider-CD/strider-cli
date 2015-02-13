@@ -30,7 +30,7 @@ module.exports = function (pluginsPath) {
     if (fs.existsSync(pluginPath)) {
       console.error(res.name+' already exists: '+pluginPath)
     } else {
-      git.clone('https://github.com/Strider-CD/strider-template.git', '1.0.0', pluginPath, function(err) {
+      git.clone('https://github.com/Strider-CD/strider-template.git', 'v1.0.1', pluginPath, function(err) {
         if (err) throw err;
         var pkgPath = path.join(pluginPath, 'package.json')
         fs.readFile(pkgPath, function (err, jsonFile) {
