@@ -54,8 +54,8 @@ function run(opts) {
         });
       }
       else {
-        console.log('Login error');
-        process.exit();
+        console.error('Login error', error, res);
+        process.exit(1);
       }
   });
 }
