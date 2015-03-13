@@ -59,6 +59,9 @@ Install a plugin from the ecosystem.
 
 i.e. `$ strider install plugin-name`
 
+_Note: `plugin-name` comes from the [ecosystem index](https://github.com/Strider-CD/ecosystem-index/blob/master/plugins.yml),
+the plugin name is the top level id, e.g. 'buildbadge'._
+
 ### uninstall
 
 Uninstall a plugin
