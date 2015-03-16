@@ -49,12 +49,10 @@ module.exports = function(deps) {
         var next = this;
 
         if (project){
-          runOpts.project = project;
           next();
         } else {
           rl.question('Project name []: ', function (pr) {
             project = pr;
-            runOpts.project = project;
             next();
           });
         }
@@ -63,11 +61,10 @@ module.exports = function(deps) {
       function getMessage() {
         var next = this;
         if (message) {
-          runOpts.message = message;
           next();
         } else {
           rl.question('Commit message (optional): ', function (msg) {
-            runOpts.message = msg;
+            message = msg;
             next();
           })
         }
@@ -76,11 +73,22 @@ module.exports = function(deps) {
       function getBranch() {
         var next = this;
         if (branch) {
-          runOpts.branch = branch;
           next();
         } else {
           rl.question('Branch (default: master): ', function (br) {
-            runOpts.branch = br;
+            branch = br;
+            next();
+          })
+        }
+      },
+
+      function getDeploy() {
+        var next = this;
+        if (deploy) {
+          next();
+        } else {
+          rl.question('Deploy (y/n) (default: n): ', function (a) {
+            deploy = a === 'y' ? true : undefined;
             next();
           })
         }
@@ -89,6 +97,10 @@ module.exports = function(deps) {
       function runTest() {
         runOpts.email = email;
         runOpts.password = password;
+        runOpts.message = message;
+        runOpts.project = project;
+        runOpts.branch = branch;
+        runOpts.deploy = deploy;
         run(runOpts);
       }
       );
@@ -96,6 +108,10 @@ module.exports = function(deps) {
     else {
       runOpts.email = email;
       runOpts.password = password;
+      runOpts.message = message;
+      runOpts.project = project;
+      runOpts.branch = branch;
+      runOpts.deploy = deploy;
       run(runOpts);
     }
   }
