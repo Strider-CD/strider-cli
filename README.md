@@ -37,8 +37,10 @@ Options:
   -l User's email address
   -p User's password
   -a Specify if this is an admin (flag) (default: false)
-  -f Force create user, overwrites previous user with the same email address (flag) (default: false)
 ```
+
+If a user exists with the given email address, you will have an option to update
+that user, or cancel the process.
 
 ### restart
 

@@ -18,8 +18,7 @@ module.exports = function(deps) {
         output: process.stdout
       });
 
-      Step(
-        function getEmail() {
+      Step(function getEmail() {
         var next = this;
 
         if (email) {
@@ -27,27 +26,7 @@ module.exports = function(deps) {
         } else {
           rl.question('Enter email []: ', function (em) {
             email = em;
-
-            User.findByEmail(email, function (err, users) {
-              if (users.length) {
-                if (force) {
-                  User.remove({ email: email }, function (error) {
-                    if (error) {
-                      console.error('Unable to remove existing user with email \'%s\'', email);
-                      process.exit(1);
-                    }
-
-                    next();
-                  });
-                } else {
-                  console.error('User already exists with the \'%s\' email address. Please enter a unique email address.', email);
-                  email = undefined;
-                  getEmail.call(next);
-                }
-              } else {
-                next();
-              }
-            });
+            next();
           });
         }
       },
@@ -92,24 +71,23 @@ module.exports = function(deps) {
 
         process.stdout.write('\nEmail:\t\t' + email + '\n');
         process.stdout.write('Password:\t' + password.replace(/.*/, '****') + '\n');
-process.stdout.write('isAdmin:\t' + (level ? 'y' : 'n') + '\n');
+        process.stdout.write('isAdmin:\t' + (level ? 'y' : 'n') + '\n');
 
-rl.question('OK? (y/n) [y]', function (ok) {
-  if (ok === 'y' || ok === '') {
-    next();
-  } else {
-    console.log('Goodbye!');
-    process.exit();
-  }
-})
+        rl.question('OK? (y/n) [y]', function (ok) {
+          if (ok === 'y' || ok === '') {
+            next();
+          } else {
+            console.log('Goodbye!');
+            process.exit();
+          }
+        })
       },
 
       function save() {
-        saveUser(email, password, level, force);
-      }
-      );
+        saveUser(email, password, level);
+      });
     } else {
-      saveUser(email, password, level, force);
+      saveUser(email, password, level);
     }
   }
 

@@ -15,12 +15,6 @@ module.exports = function(deps, parser) {
     'default': false,
     flag: true
   })
-  .option('force', {
-    abbr: 'f',
-    help: 'Force create user, overwrites previous user with the same email address',
-    'default': false,
-    flag: true
-  })
   .callback(function(opts){
     deps.connect(function(err) {
       if (err) {
