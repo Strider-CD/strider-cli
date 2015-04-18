@@ -73,21 +73,26 @@ module.exports = function(deps) {
         process.stdout.write('Password:\t' + password.replace(/.*/, '****') + '\n');
         process.stdout.write('isAdmin:\t' + (level ? 'y' : 'n') + '\n');
 
-        rl.question('OK? (y/n) [y]', function (ok) {
-          if (ok === 'y' || ok === '') {
-            next();
-          } else {
-            console.log('Goodbye!');
-            process.exit();
-          }
-        });
+        if (force) {
+          next();
+        }
+        else {
+          rl.question('OK? (y/n) [y]', function (ok) {
+            if (ok === 'y' || ok === '') {
+              next();
+            } else {
+              console.log('Goodbye!');
+              process.exit();
+            }
+          });
+        }
       },
 
       function save() {
-        saveUser(email, password, level, rl);
+        saveUser(email, password, level, rl, force);
       });
     } else {
-      saveUser(email, password, level, rl);
+      saveUser(email, password, level, rl, force);
     }
   }
 

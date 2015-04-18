@@ -3,7 +3,7 @@
 module.exports = function(deps) {
   var User = deps.models().User;
 
-  function createUser(email, password, admin, rl) {
+  function createUser(email, password, admin, rl, force) {
     User.findByEmail(email, function (err, users) {
       if (err) {
         console.error('Failed to lookup users, please let us know at https://github.com/Strider-CD/strider-cli/issues: ', err);
@@ -11,10 +11,8 @@ module.exports = function(deps) {
       }
 
       if (users.length) {
-        rl.question('User already exists, overwrite? (y/n) [n]: ', function (overwrite) {
-          rl.close();
-
-          if (overwrite === 'y') {
+        overwrite(rl, force, function (yes) {
+          if (yes) {
             User.update({ email: email }, {
               password: password,
               account_level: admin
@@ -56,3 +54,16 @@ module.exports = function(deps) {
   return createUser;
 }
 
+function overwrite(rl, force, cb) {
+  if (force) {
+    process.nextTick(function () {
+      cb(force);
+    });
+  }
+  else {
+    rl.question('User already exists, overwrite? (y/n) [n]: ', function (overwrite) {
+      rl.close();
+      cb(overwrite === 'y' || overwrite === '');
+    });
+  }
+}
