@@ -31,19 +31,6 @@ module.exports = function(deps) {
         }
       },
 
-      function getAdmin() {
-        var next = this;
-
-        if (level) {
-          next();
-        } else {
-          rl.question('Is admin? (y/n) [n]', function (a) {
-            level = a ? 1 : undefined;
-            next();
-          });
-        }
-      },
-
       function getPwd() {
         var next = this;
 
@@ -66,6 +53,19 @@ module.exports = function(deps) {
         }
       },
 
+      function getAdmin() {
+        var next = this;
+
+        if (level) {
+          next();
+        } else {
+          rl.question('Is admin? (y/n) [n]', function (a) {
+            level = a ? 1 : undefined;
+            next();
+          });
+        }
+      },
+
       function confirm() {
         var next = this;
 
@@ -80,14 +80,14 @@ module.exports = function(deps) {
             console.log('Goodbye!');
             process.exit();
           }
-        })
+        });
       },
 
       function save() {
-        saveUser(email, password, level);
+        saveUser(email, password, level, rl);
       });
     } else {
-      saveUser(email, password, level);
+      saveUser(email, password, level, rl);
     }
   }
 

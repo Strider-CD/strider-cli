@@ -1,11 +1,9 @@
 'use strict';
 
-var readline = require('readline');
-
 module.exports = function(deps) {
   var User = deps.models().User;
 
-  function createUser(email, password, admin) {
+  function createUser(email, password, admin, rl) {
     User.findByEmail(email, function (err, users) {
       if (err) {
         console.error('Failed to lookup users, please let us know at https://github.com/Strider-CD/strider-cli/issues: ', err);
@@ -13,13 +11,10 @@ module.exports = function(deps) {
       }
 
       if (users.length) {
-        var rl = readline.createInterface({
-          input: process.stdin,
-          output: process.stdout
-        });
-
         rl.question('User already exists, overwrite? (y/n) [n]: ', function (overwrite) {
-          if (overwrite) {
+          rl.close();
+
+          if (overwrite === 'y') {
             User.update({ email: email }, {
               password: password,
               account_level: admin

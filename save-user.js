@@ -5,7 +5,7 @@ module.exports = function(deps) {
   var Upgrade = deps.upgrade()
     , Config = deps.models().Config
 
-  function saveUser(email, password, admin) {
+  function saveUser(email, password, admin, rl) {
     Upgrade.isFreshDb(function (err, isFresh) {
       if (isFresh) {
         Upgrade.needConfigObj(function (err, needsConfig) {
@@ -15,15 +15,15 @@ module.exports = function(deps) {
             c.version = Config.SCHEMA_VERSION;
 
             c.save(function () {
-              createUser(email, password, admin);
+              createUser(email, password, admin, rl);
             });
           } else {
-            createUser(email, password, admin);
+            createUser(email, password, admin, rl);
           }
         });
       } else {
         Upgrade.ensure(Config.SCHEMA_VERSION, function () {
-          createUser(email, password, admin);
+          createUser(email, password, admin, rl);
         });
       }
     });
