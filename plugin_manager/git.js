@@ -1,4 +1,4 @@
-var spawn = require('child_process').spawn
+var spawn = require('spawn-cmd').spawn;
 
 module.exports = {
   clone: function(repo, tag, path, cb) {
