@@ -26,6 +26,7 @@
     "prompt": "^0.2.14",
     "pw": "0.0.4",
     "rimraf": "^2.2.8",
+    "spawn-cmd": "0.0.2",
     "step": "0.0.5",
     "strider-ecosystem-client": "1.2.1",
     "strider-extension-loader": "^0.4.4",
