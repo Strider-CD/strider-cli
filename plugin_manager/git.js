@@ -15,6 +15,10 @@ module.exports = {
     proc.stderr.on('data', function(chk) {
       errors.push(chk.toString());
     })
+    
+    proc.on('error', function(err) {
+      return cb(err);
+    });
 
     proc.on('close', function (code) {
       if (code !== 0) {
