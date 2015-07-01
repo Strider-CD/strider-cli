@@ -3,7 +3,7 @@ var spawn = require('spawn-cmd').spawn;
 module.exports = function(cwd) {
   return {
     install: function(cb) {
-      var proc = spawn('npm', [ 'install', '--production' ], {
+      var proc = spawn('npm', [ 'install', '--production', '--ignore-scripts' ], {
         stdio: 'inherit',
         cwd: cwd
       })
