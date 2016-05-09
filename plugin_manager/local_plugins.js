@@ -36,7 +36,8 @@ module.exports = function(pluginsPath) {
             group: groupName,
             name: pluginName,
             path: plugin.dir,
-            version: getVersion(plugin.dir)
+            version: getVersion(plugin.dir),
+            title: plugin.title
           })
         }
       }
