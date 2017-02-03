@@ -1,6 +1,8 @@
 strider-cli
 ===========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Strider-CD/strider-cli.svg)](https://greenkeeper.io/)
+
 CLI for Strider
 
 [![NPM](https://nodei.co/npm/strider-cli.png)](https://nodei.co/npm/strider-cli/)
