@@ -20,6 +20,7 @@ command
   upgrade       Replace a plugin with the the latest version
   init          Initialize a new plugin for development
   runTest       Run a test and optionally deploy
+  cleanupJobs   Cleanup all jobs except for the latest 20 or custom
 
 Options:
    -v, --version       Print version and exit
@@ -93,4 +94,14 @@ Options:
   -b Branch name (default: master)
   -m Job message (optional)
   -d Deploy on green (optional) (flag)
+```
+
+### cleanupJobs
+
+Cleanup all jobs except for the latest 20 or custom
+
+```
+Options:
+  -k Number of latest jobs to keep, defaults to 20
+  -p Project to targer, defaults to all projects
 ```
