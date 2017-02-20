@@ -98,7 +98,7 @@ Options:
 
 ### pruneJobs
 
-Cleanup all jobs except for the latest 20 or custom
+Cleanup/prune all jobs except for the latest 20 or custom (use `-k [your number]`)
 
 ```
 Options:
