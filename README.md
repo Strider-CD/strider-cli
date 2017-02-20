@@ -20,7 +20,7 @@ command
   upgrade       Replace a plugin with the the latest version
   init          Initialize a new plugin for development
   runTest       Run a test and optionally deploy
-  cleanupJobs   Cleanup all jobs except for the latest 20 or custom
+  pruneJobs     Cleanup all jobs except for the latest 20 or custom
 
 Options:
    -v, --version       Print version and exit
@@ -96,7 +96,7 @@ Options:
   -d Deploy on green (optional) (flag)
 ```
 
-### cleanupJobs
+### pruneJobs
 
 Cleanup all jobs except for the latest 20 or custom
 
@@ -104,4 +104,5 @@ Cleanup all jobs except for the latest 20 or custom
 Options:
   -k Number of latest jobs to keep, defaults to 20
   -p Project to targer, defaults to all projects
+  -d Just print stats about what will be removed, but do not remove any jobs
 ```

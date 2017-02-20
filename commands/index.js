@@ -1,14 +1,15 @@
 'use strict';
 
 var order = [
-  require('./addUser'),
+  require('./add-user'),
   require('./restart'),
   require('./list'),
   require('./install'),
   require('./uninstall'),
   require('./upgrade'),
   require('./init'),
-  require('./runTest')
+  require('./run-test'),
+  require('./prune-jobs')
 ];
 
 module.exports.setup = function (deps, parser) {
