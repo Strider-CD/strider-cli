@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (deps, parser) {
-  var cleanupJobs = require('../lib/cleanup-jobs')(deps);
+  var pruneJobs = require('../lib/prune-jobs')(deps);
 
   parser.command('pruneJobs')
     .option('project', {
@@ -25,7 +25,7 @@ module.exports = function (deps, parser) {
           throw err;
         }
 
-        cleanupJobs(opts.keepJobs, opts.project, opts.dryRun);
+        pruneJobs(opts.keepJobs, opts.project, opts.dryRun);
       });
     })
     .help('Cleanup all jobs except for the latest 20 or custom');
