@@ -1,6 +1,6 @@
 {
   "name": "strider-cli",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "CLI for Strider",
   "main": "index.js",
   "scripts": {
