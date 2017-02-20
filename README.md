@@ -103,6 +103,6 @@ Cleanup/prune all jobs except for the latest 20 or custom (use `-k [your number]
 ```
 Options:
   -k Number of latest jobs to keep, defaults to 20
-  -p Project to targer, defaults to all projects
+  -p Project to target, defaults to all projects
   -d Just print stats about what will be removed, but do not remove any jobs
 ```

@@ -6,7 +6,7 @@ module.exports = function (deps, parser) {
   parser.command('pruneJobs')
     .option('project', {
       abbr: 'p',
-      help: 'Project to targer, defaults to all projects if not specified',
+      help: 'Project to target, defaults to all projects if not specified',
     })
     .option('keepJobs', {
       abbr: 'k',
